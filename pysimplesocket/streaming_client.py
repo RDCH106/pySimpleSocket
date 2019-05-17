@@ -44,6 +44,10 @@ class StreamingClient(object):
                     print(response)
 
         except ConnectionRefusedError as e:
+            print(str(e))
+        except ConnectionResetError as e:
+            print(str(e))
+        except Exception as e:
             print(e)
         finally:
             client.close()
@@ -82,4 +86,5 @@ if __name__ == "__main__":
                 time.sleep(1)
         except KeyboardInterrupt:
             receiver.stop()
+            time.sleep(1)
             sys.exit()
