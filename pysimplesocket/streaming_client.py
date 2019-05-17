@@ -4,9 +4,23 @@ import socket
 import threading
 import time
 import sys
+import argparse
+
+
+class Metadata:
+    def __init__(self):
+        self.__version__ = '0.0.1'
+        self.__author__ = 'Rubén de Celis Hernández'
+
+    def get_version(self):
+        return self.__version__
+
+    def get_author(self):
+        return self.__author__
 
 
 class StreamingClient(object):
+
     def __init__(self, ip=None, port=None):
         self.__ip = ip
         self.__port = port
@@ -49,7 +63,17 @@ class StreamingClient(object):
 
 
 if __name__ == "__main__":
-    receiver = StreamingClient("127.0.0.1", 50043)
+
+    # Parse arguments provided
+    parser = argparse.ArgumentParser()
+    meta = Metadata()
+    parser.add_argument('-v', '--version', action='version', version=meta.get_version())
+    parser.add_argument('-s', '--host', dest='host', help='Host server to connect', default=None, required=True)
+    parser.add_argument('-p', '--port', dest='port', help='Port to connect', default=None, required=True)
+
+    args = parser.parse_args()
+
+    receiver = StreamingClient(args.host, int(args.port))
     receiver.run()
 
     while True:
