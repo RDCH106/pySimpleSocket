@@ -17,8 +17,6 @@ class StreamingClient(AbstractClient):
     def __init__(self, ip=None, port=None):
         self.__ip = ip
         self.__port = port
-        # self.__receiver_thread = None
-        # self.__stop = False
         self.__socket_family = socket.AF_INET
         self.__socket_type = socket.SOCK_STREAM
         super(StreamingClient, self).__init__()
@@ -52,25 +50,15 @@ class StreamingClient(AbstractClient):
 
     def run(self):
         super(StreamingClient, self).run()
-        # if self.__receiver_thread is None:
-        #     self.__stop = False
-        #
-        #     self.__receiver_thread = threading.Thread(target=self.receiver_worker)
-        #     self.__receiver_thread.daemon = True
-        #     self.__receiver_thread.start()
 
     def stop(self):
         super(StreamingClient, self).stop()
-        # self.__receiver_thread = None
-        # self.__stop = True
 
 
 if __name__ == "__main__":
 
     # Parse arguments provided
     parser = argparse.ArgumentParser()
-    # meta = Metadata()
-    # parser.add_argument('-v', '--version', action='version', version=meta.get_version())
     parser.add_argument('-v', '--version', action='version', version=StreamingClient.meta.get_version())
     parser.add_argument('-s', '--host', dest='host', help='Host server to connect', default=None, required=True)
     parser.add_argument('-p', '--port', dest='port', help='Port to connect', default=None, required=True)
