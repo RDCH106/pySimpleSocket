@@ -37,6 +37,7 @@ class StreamingClient(AbstractClient):
 
                 if len(response) > 0:
                     print(response)
+                    print('-----')
 
         except ConnectionRefusedError as e:
             print(str(e))
